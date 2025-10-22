@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — FireSentinel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <div class="brand">FireSentinel</div>
+      <nav class="nav"><a href="index.html#solution">Back to site</a></nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container narrow">
+      <h1>About FireSentinel</h1>
+      <p>FireSentinel is an AlexNet‑powered system for early fire and smoke detection. It runs on edge devices or the cloud and can integrate with existing CCTV systems. When detection confidence crosses a threshold tuned for high recall, alerts are dispatched immediately to authorities and site operators.</p>
+      <h2>Model & Training</h2>
+      <ul class="checklist">
+        <li>Transfer learning from ImageNet with fine‑tuning</li>
+        <li>Strong augmentations; focal loss for imbalance</li>
+        <li>Temporal smoothing for video stability</li>
+        <li>Grad‑CAM explainability for audits</li>
+      </ul>
+      <h2>Deployment</h2>
+      <p>Export as TorchScript/ONNX; supports INT8 quantization. Integrates via RTSP/ONVIF/HTTP and REST APIs.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container foot-flex">
+      <div>© <span id="year"></span> FireSentinel</div>
+    </div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
