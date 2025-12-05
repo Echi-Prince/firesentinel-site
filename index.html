@@ -18,6 +18,7 @@
         <a href="#solution">Solution</a>
         <a href="#architecture">Architecture</a>
         <a href="#experiments">Experiments</a>
+        <a href="#results">Results</a>
         <a href="#deployment">Deployment</a>
         <a href="#security">Security</a>
         <a href="#roadmap">Roadmap</a>
@@ -54,7 +55,7 @@
             <path d="M200 300c-40-30-80-90-35-145-5 30 30 45 45 20 12-20-5-45 10-70 12-19 35-31 50-25-20 20-5 45 10 50 20 8 40-15 50-35 40 55-10 120-40 140 15-10 45-10 60-5-25 60-90 80-150 70z" fill="url(#g1)"/>
             <path d="M220 260c-20-15-40-45-18-73-3 15 15 23 23 10 7-10-2-23 5-35 6-10 18-16 25-13-10 10-2 24 5 27 10 4 20-8 25-18 20 30-5 60-20 70 7-5 22-5 30-3-13 30-45 40-75 35z" fill="#ff8a50" opacity=".9"/>
           </g>
-          <text x="40" y="460" fill="#e7e7e7" font-family="Inter" font-size="20">Real‑time Fire/Smoke Detection · Alerts via API/SMS · Temporal Smoothing</text>
+          <text x="40" y="460" fill="#e7e7e7" font-family="Inter" font-size="20">Real-time Fire/Smoke Detection · Alerts via API/SMS · Temporal Smoothing</text>
         </svg>
       </div>
     </div>
@@ -85,15 +86,15 @@
       <div class="grid3 features">
         <div class="feature">
           <h3>Standalone device</h3>
-          <p>Plug‑and‑play camera unit for new installs and remote sites.</p>
+          <p>Plug-and-play camera unit for new installs and remote sites.</p>
         </div>
         <div class="feature">
           <h3>Software integration</h3>
-          <p>Drop‑in module for existing CCTV and smart camera systems.</p>
+          <p>Drop-in module for existing CCTV and smart camera systems.</p>
         </div>
         <div class="feature">
           <h3>Smart alerting</h3>
-          <p>APIs, SMS/Email, and optional on‑site siren/strobe. Tuned for ≥95% recall.</p>
+          <p>APIs, SMS/Email, and optional on-site siren/strobe. Tuned for ≥95% recall.</p>
         </div>
       </div>
     </div>
@@ -104,15 +105,15 @@
       <div>
         <h2>System architecture</h2>
         <ol class="steps">
-          <li>Frame extraction & preprocessing</li>
+          <li>Frame extraction &amp; preprocessing</li>
           <li>Fire detection via AlexNet CNN</li>
-          <li>Confidence scoring & temporal smoothing</li>
+          <li>Confidence scoring &amp; temporal smoothing</li>
           <li>Alert trigger via dispatch API/SMS</li>
         </ol>
         <p><strong>Deploy anywhere:</strong> Edge device (Jetson/RPi) for low latency, or Cloud API for centralized CCTV.</p>
       </div>
       <div class="card">
-        <h3>Data logging & auditing</h3>
+        <h3>Data logging &amp; auditing</h3>
         <p>Each detection stores timestamp, location, and a frame snippet for review and model improvement.</p>
       </div>
     </div>
@@ -120,43 +121,115 @@
 
   <section id="experiments" class="section alt">
     <div class="container">
-      <h2>Experiments & results</h2>
+      <h2>Experiments &amp; results overview</h2>
       <div class="grid2">
         <div>
           <ul class="checklist">
-            <li>Transfer learning depth: head vs partial vs full fine‑tune</li>
-            <li>Augmentation ablations & class imbalance handling</li>
-            <li>Cross‑entropy vs Focal loss (γ∈{1,2})</li>
-            <li>Resolution/latency trade‑offs (224↘128)</li>
-            <li>Threshold tuning for high‑recall operation</li>
+            <li>Transfer learning depth: head vs partial vs full fine-tune</li>
+            <li>Augmentation ablations &amp; class imbalance handling</li>
+            <li>Cross-entropy vs Focal loss (γ ∈ {1, 2})</li>
+            <li>Resolution/latency trade-offs (224 ↘ 128)</li>
+            <li>Threshold tuning for high-recall operation</li>
             <li>Temporal smoothing (EMA / majority vote)</li>
-            <li>Grad‑CAM explainability on detections</li>
+            <li>Grad-CAM explainability on detections</li>
           </ul>
         </div>
         <div class="card">
-          <h3>Metrics (placeholder)</h3>
-          <p>Primary: PR‑AUC / AUROC. Secondary: F1@operating threshold, latency (ms/frame), false alarms/hour.</p>
-          <div class="plot-wrap">
-            <img src="assets/img/pr_placeholder.svg" alt="PR curve placeholder">
-            <img src="assets/img/roc_placeholder.svg" alt="ROC curve placeholder">
-          </div>
+          <h3>Key metrics (design targets)</h3>
+          <p>Primary: PR-AUC / AUROC. Secondary: F1 at operating threshold, latency (ms/frame), and false alarms per hour.</p>
+          <p>Below, we show concrete learning curves from our AlexNet and ResNet18 experiments.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- RESULTS SECTION WITH W&B IMAGES -->
+  <section id="results" class="section">
+    <div class="container grid2">
+      <div>
+        <h2>Learning curves from W&amp;B experiments</h2>
+        <p class="lead">
+          We compared several configurations of AlexNet and ResNet18 using different batch sizes,
+          learning rates, and augmentation strategies. The plots on the right show how train and
+          validation loss/accuracy evolve over 10 epochs.
+        </p>
+
+        <h3>Takeaways</h3>
+        <ul class="checklist">
+          <li>
+            <strong>ResNet18 with augmentation (bs32, lr=1e-4)</strong> achieves the
+            <strong>best overall validation performance</strong>, reaching ~100% validation
+            accuracy with the lowest validation loss.
+          </li>
+          <li>
+            <strong>AlexNet runs with lr=1e-4</strong> (bs16/32/64, with and without augmentation)
+            converge cleanly, stabilizing around 0.9–0.96 validation accuracy with smoothly
+            decreasing losses.
+          </li>
+          <li>
+            The <strong>AlexNet configuration with a high learning rate (bs32, lr=1e-3, augmented)</strong>
+            is unstable: training loss spikes early, validation loss stays high, and validation
+            accuracy degrades over epochs. This suggests the learning rate is too aggressive and
+            the model fails to properly converge.
+          </li>
+          <li>
+            <strong>Data augmentation helps generalization:</strong> augmented runs maintain similar
+            training accuracy to non-augmented ones but with lower or more stable validation loss,
+            indicating better robustness rather than overfitting.
+          </li>
+          <li>
+            All well-tuned experiments quickly hit near-perfect training accuracy, so
+            <strong>future work</strong> should focus on: more diverse datasets, stronger
+            regularization, and stress-testing under challenging conditions (smoke, glare, rain)
+            instead of just increasing raw accuracy.
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Training &amp; validation curves</h3>
+        <p>Curves exported directly from Weights &amp; Biases runs.</p>
+
+        <figure class="plot-wrap">
+          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_00 PM.png"
+               alt="Train loss for AlexNet and ResNet18 configurations">
+          <figcaption>Train loss vs. epoch</figcaption>
+        </figure>
+
+        <figure class="plot-wrap">
+          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_14 PM.png"
+               alt="Validation accuracy for AlexNet and ResNet18 configurations">
+          <figcaption>Validation accuracy vs. epoch</figcaption>
+        </figure>
+
+        <figure class="plot-wrap">
+          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_09 PM.png"
+               alt="Validation loss for AlexNet and ResNet18 configurations">
+          <figcaption>Validation loss vs. epoch</figcaption>
+        </figure>
+
+        <figure class="plot-wrap">
+          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_20 PM.png"
+               alt="Train accuracy for AlexNet and ResNet18 configurations">
+          <figcaption>Train accuracy vs. epoch</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <!-- END RESULTS SECTION -->
+
   <section id="deployment" class="section">
     <div class="container grid3 features">
       <div class="feature">
-        <h3>Real‑time inference</h3>
+        <h3>Real-time inference</h3>
         <p>&lt; 500 ms per frame @224×224 on Jetson Nano / standard GPU; ~20 FPS per feed.</p>
       </div>
       <div class="feature">
         <h3>Edge + Cloud</h3>
-        <p>On‑device detection with optional cloud console for fleet monitoring, history, and remote thresholds.</p>
+        <p>On-device detection with optional cloud console for fleet monitoring, history, and remote thresholds.</p>
       </div>
       <div class="feature">
-        <h3>Deployment‑ready</h3>
+        <h3>Deployment-ready</h3>
         <p>Export via TorchScript/ONNX; optional INT8 quantization for edge accelerators.</p>
       </div>
     </div>
@@ -165,18 +238,18 @@
   <section id="security" class="section alt">
     <div class="container grid2">
       <div>
-        <h2>Security, privacy & reliability</h2>
+        <h2>Security, privacy &amp; reliability</h2>
         <ul class="checklist">
           <li>TLS/SSL encrypted traffic</li>
-          <li>On‑device inference keeps raw video local</li>
-          <li>Fail‑safes: offline buffers & redundant alert relays</li>
-          <li>Self‑diagnostics & health checks</li>
-          <li>Designed toward NFPA 72 & GDPR readiness</li>
+          <li>On-device inference keeps raw video local</li>
+          <li>Fail-safes: offline buffers &amp; redundant alert relays</li>
+          <li>Self-diagnostics &amp; health checks</li>
+          <li>Designed toward NFPA 72 &amp; GDPR readiness</li>
         </ul>
       </div>
       <div class="card">
         <h3>Integrations</h3>
-        <p>RTSP · ONVIF · HTTP · Vendor SDKs · REST APIs for dispatch and third‑party alerting.</p>
+        <p>RTSP · ONVIF · HTTP · Vendor SDKs · REST APIs for dispatch and third-party alerting.</p>
       </div>
     </div>
   </section>
@@ -185,7 +258,7 @@
     <div class="container grid3 features">
       <div class="feature">
         <h3>Phase 1 — Prototype</h3>
-        <p>Model training & offline testing.</p>
+        <p>Model training &amp; offline testing.</p>
       </div>
       <div class="feature">
         <h3>Phase 2 — Pilots</h3>
