@@ -9,10 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
+
+  <!-- HEADER WITH LOGO -->
   <header class="site-header">
     <div class="container nav-wrap">
-      <div class="brand">FireSentinel</div>
+      <div class="brand" style="display:flex; align-items:center; gap:10px;">
+        <img src="assets/img/fslogo.png" 
+             alt="FireSentinel Logo" 
+             style="height:48px; width:auto;">
+        <span style="font-weight:800; font-size:1.4rem;">FireSentinel</span>
+      </div>
+
       <nav class="nav">
         <a href="#problem">Problem</a>
         <a href="#solution">Solution</a>
@@ -40,8 +49,10 @@
           <span>Edge or Cloud</span><span>24/7 Monitoring</span><span>&lt; 500 ms Latency</span><span>Retrofits CCTV</span>
         </div>
       </div>
+
       <div class="hero-art">
-        <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylized fire graphic">
+        <!-- SVG Art -->
+        <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" role="img">
           <defs>
             <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
               <stop offset="0%" stop-color="#ff7043"/>
@@ -55,12 +66,15 @@
             <path d="M200 300c-40-30-80-90-35-145-5 30 30 45 45 20 12-20-5-45 10-70 12-19 35-31 50-25-20 20-5 45 10 50 20 8 40-15 50-35 40 55-10 120-40 140 15-10 45-10 60-5-25 60-90 80-150 70z" fill="url(#g1)"/>
             <path d="M220 260c-20-15-40-45-18-73-3 15 15 23 23 10 7-10-2-23 5-35 6-10 18-16 25-13-10 10-2 24 5 27 10 4 20-8 25-18 20 30-5 60-20 70 7-5 22-5 30-3-13 30-45 40-75 35z" fill="#ff8a50" opacity=".9"/>
           </g>
-          <text x="40" y="460" fill="#e7e7e7" font-family="Inter" font-size="20">Real-time Fire/Smoke Detection · Alerts via API/SMS · Temporal Smoothing</text>
+          <text x="40" y="460" fill="#e7e7e7" font-family="Inter" font-size="20">
+            Real-time Fire/Smoke Detection · Alerts via API/SMS · Temporal Smoothing
+          </text>
         </svg>
       </div>
     </div>
   </section>
 
+  <!-- PROBLEM SECTION -->
   <section id="problem" class="section">
     <div class="container grid2">
       <div>
@@ -79,202 +93,149 @@
     </div>
   </section>
 
+  <!-- SOLUTION SECTION -->
   <section id="solution" class="section alt">
     <div class="container">
       <h2>The solution: FireSentinel</h2>
-      <p class="lead">AlexNet-based computer vision detects flames and smoke in live video feeds. When confidence crosses a safety threshold, it instantly notifies authorities and facility staff.</p>
+      <p class="lead">AlexNet-based computer vision detects flames and smoke in live video feeds. When confidence crosses a safety threshold, it instantly notifies authorities.</p>
       <div class="grid3 features">
-        <div class="feature">
-          <h3>Standalone device</h3>
-          <p>Plug-and-play camera unit for new installs and remote sites.</p>
-        </div>
-        <div class="feature">
-          <h3>Software integration</h3>
-          <p>Drop-in module for existing CCTV and smart camera systems.</p>
-        </div>
-        <div class="feature">
-          <h3>Smart alerting</h3>
-          <p>APIs, SMS/Email, and optional on-site siren/strobe. Tuned for ≥95% recall.</p>
-        </div>
+        <div class="feature"><h3>Standalone device</h3><p>Plug-and-play camera unit.</p></div>
+        <div class="feature"><h3>Software integration</h3><p>Drop-in module for CCTV systems.</p></div>
+        <div class="feature"><h3>Smart alerting</h3><p>APIs, SMS/Email, and siren/strobe options.</p></div>
       </div>
     </div>
   </section>
 
+  <!-- ARCHITECTURE -->
   <section id="architecture" class="section">
     <div class="container grid2">
       <div>
         <h2>System architecture</h2>
         <ol class="steps">
-          <li>Frame extraction &amp; preprocessing</li>
+          <li>Frame extraction & preprocessing</li>
           <li>Fire detection via AlexNet CNN</li>
-          <li>Confidence scoring &amp; temporal smoothing</li>
-          <li>Alert trigger via dispatch API/SMS</li>
+          <li>Confidence smoothing</li>
+          <li>Instant alert dispatch</li>
         </ol>
-        <p><strong>Deploy anywhere:</strong> Edge device (Jetson/RPi) for low latency, or Cloud API for centralized CCTV.</p>
+        <p><strong>Edge or Cloud:</strong> Jetson/RPi for low latency or Cloud service for centralized CCTV.</p>
       </div>
       <div class="card">
-        <h3>Data logging &amp; auditing</h3>
-        <p>Each detection stores timestamp, location, and a frame snippet for review and model improvement.</p>
+        <h3>Data logging</h3>
+        <p>Snapshots saved for auditing, retraining, or manual review.</p>
       </div>
     </div>
   </section>
 
+  <!-- EXPERIMENTS -->
   <section id="experiments" class="section alt">
     <div class="container">
-      <h2>Experiments &amp; results overview</h2>
+      <h2>Experiments & results overview</h2>
       <div class="grid2">
         <div>
           <ul class="checklist">
-            <li>Transfer learning depth: head vs partial vs full fine-tune</li>
-            <li>Augmentation ablations &amp; class imbalance handling</li>
-            <li>Cross-entropy vs Focal loss (γ ∈ {1, 2})</li>
-            <li>Resolution/latency trade-offs (224 ↘ 128)</li>
-            <li>Threshold tuning for high-recall operation</li>
-            <li>Temporal smoothing (EMA / majority vote)</li>
-            <li>Grad-CAM explainability on detections</li>
+            <li>Augmentation ablations</li>
+            <li>Learning-rate sweeps</li>
+            <li>Batch-size sweeps</li>
+            <li>Cross-entropy vs Focal loss</li>
+            <li>Threshold tuning</li>
+            <li>Grad-CAM analysis</li>
           </ul>
         </div>
+
         <div class="card">
-          <h3>Key metrics (design targets)</h3>
-          <p>Primary: PR-AUC / AUROC. Secondary: F1 at operating threshold, latency (ms/frame), and false alarms per hour.</p>
-          <p>Below, we show concrete learning curves from our AlexNet and ResNet18 experiments.</p>
+          <h3>Design targets</h3>
+          <p>PR-AUC, AUROC, F1, latency, false alarms/hr.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RESULTS SECTION WITH W&B IMAGES -->
+  <!-- RESULTS WITH W&B IMAGES -->
   <section id="results" class="section">
     <div class="container grid2">
       <div>
-        <h2>Learning curves from W&amp;B experiments</h2>
-        <p class="lead">
-          We compared several configurations of AlexNet and ResNet18 using different batch sizes,
-          learning rates, and augmentation strategies. The plots on the right show how train and
-          validation loss/accuracy evolve over 10 epochs.
-        </p>
-
-        <h3>Takeaways</h3>
+        <h2>Learning curves</h2>
+        <p class="lead">Below are the actual W&B curves from multiple AlexNet and ResNet18 runs.</p>
         <ul class="checklist">
-          <li>
-            <strong>ResNet18 with augmentation (bs32, lr=1e-4)</strong> achieves the
-            <strong>best overall validation performance</strong>, reaching ~100% validation
-            accuracy with the lowest validation loss.
-          </li>
-          <li>
-            <strong>AlexNet runs with lr=1e-4</strong> (bs16/32/64, with and without augmentation)
-            converge cleanly, stabilizing around 0.9–0.96 validation accuracy with smoothly
-            decreasing losses.
-          </li>
-          <li>
-            The <strong>AlexNet configuration with a high learning rate (bs32, lr=1e-3, augmented)</strong>
-            is unstable: training loss spikes early, validation loss stays high, and validation
-            accuracy degrades over epochs. This suggests the learning rate is too aggressive and
-            the model fails to properly converge.
-          </li>
-          <li>
-            <strong>Data augmentation helps generalization:</strong> augmented runs maintain similar
-            training accuracy to non-augmented ones but with lower or more stable validation loss,
-            indicating better robustness rather than overfitting.
-          </li>
-          <li>
-            All well-tuned experiments quickly hit near-perfect training accuracy, so
-            <strong>future work</strong> should focus on: more diverse datasets, stronger
-            regularization, and stress-testing under challenging conditions (smoke, glare, rain)
-            instead of just increasing raw accuracy.
-          </li>
+          <li>ResNet18 (bs32, lr=1e-4) achieved the best validation performance.</li>
+          <li>All AlexNet 1e-4 configs converged well (~0.9–0.96 val accuracy).</li>
+          <li>AlexNet lr=1e-3 was unstable: high loss + poor val accuracy.</li>
+          <li>Augmentation improved generalization and stability.</li>
+          <li>Future work: expand dataset, increase robustness, test harsh conditions.</li>
         </ul>
       </div>
 
       <div class="card">
-        <h3>Training &amp; validation curves</h3>
-        <p>Curves exported directly from Weights &amp; Biases runs.</p>
+        <h3>W&B charts</h3>
 
         <figure class="plot-wrap">
-          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_00 PM.png"
-               alt="Train loss for AlexNet and ResNet18 configurations">
-          <figcaption>Train loss vs. epoch</figcaption>
+          <img src="assets/img/W&B Chart 12_3_2025, 4_35_00 PM.png" alt="Train loss curve">
+          <figcaption>Train loss</figcaption>
         </figure>
 
         <figure class="plot-wrap">
-          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_14 PM.png"
-               alt="Validation accuracy for AlexNet and ResNet18 configurations">
-          <figcaption>Validation accuracy vs. epoch</figcaption>
+          <img src="assets/img/W&B Chart 12_3_2025, 4_35_14 PM.png" alt="Validation accuracy curve">
+          <figcaption>Validation accuracy</figcaption>
         </figure>
 
         <figure class="plot-wrap">
-          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_09 PM.png"
-               alt="Validation loss for AlexNet and ResNet18 configurations">
-          <figcaption>Validation loss vs. epoch</figcaption>
+          <img src="assets/img/W&B Chart 12_3_2025, 4_35_09 PM.png" alt="Validation loss curve">
+          <figcaption>Validation loss</figcaption>
         </figure>
 
         <figure class="plot-wrap">
-          <img src="assets/img/W&amp;B Chart 12_3_2025, 4_35_20 PM.png"
-               alt="Train accuracy for AlexNet and ResNet18 configurations">
-          <figcaption>Train accuracy vs. epoch</figcaption>
+          <img src="assets/img/W&B Chart 12_3_2025, 4_35_20 PM.png" alt="Train accuracy curve">
+          <figcaption>Train accuracy</figcaption>
         </figure>
+
       </div>
     </div>
   </section>
-  <!-- END RESULTS SECTION -->
 
+  <!-- DEPLOYMENT -->
   <section id="deployment" class="section">
     <div class="container grid3 features">
-      <div class="feature">
-        <h3>Real-time inference</h3>
-        <p>&lt; 500 ms per frame @224×224 on Jetson Nano / standard GPU; ~20 FPS per feed.</p>
-      </div>
-      <div class="feature">
-        <h3>Edge + Cloud</h3>
-        <p>On-device detection with optional cloud console for fleet monitoring, history, and remote thresholds.</p>
-      </div>
-      <div class="feature">
-        <h3>Deployment-ready</h3>
-        <p>Export via TorchScript/ONNX; optional INT8 quantization for edge accelerators.</p>
-      </div>
+      <div class="feature"><h3>Real-time inference</h3><p>&lt;500 ms per frame @224px</p></div>
+      <div class="feature"><h3>Edge + Cloud</h3><p>Local + remote monitoring</p></div>
+      <div class="feature"><h3>Deployment-ready</h3><p>TorchScript/ONNX export</p></div>
     </div>
   </section>
 
+  <!-- SECURITY -->
   <section id="security" class="section alt">
     <div class="container grid2">
       <div>
-        <h2>Security, privacy &amp; reliability</h2>
+        <h2>Security & privacy</h2>
         <ul class="checklist">
-          <li>TLS/SSL encrypted traffic</li>
-          <li>On-device inference keeps raw video local</li>
-          <li>Fail-safes: offline buffers &amp; redundant alert relays</li>
-          <li>Self-diagnostics &amp; health checks</li>
-          <li>Designed toward NFPA 72 &amp; GDPR readiness</li>
+          <li>Encrypted traffic (TLS)</li>
+          <li>On-device inference</li>
+          <li>Offline fail-safes</li>
+          <li>Self-diagnostics</li>
+          <li>GDPR-friendly design</li>
         </ul>
       </div>
+
       <div class="card">
         <h3>Integrations</h3>
-        <p>RTSP · ONVIF · HTTP · Vendor SDKs · REST APIs for dispatch and third-party alerting.</p>
+        <p>RTSP · ONVIF · HTTP · REST APIs</p>
       </div>
     </div>
   </section>
 
+  <!-- ROADMAP -->
   <section id="roadmap" class="section">
     <div class="container grid3 features">
-      <div class="feature">
-        <h3>Phase 1 — Prototype</h3>
-        <p>Model training &amp; offline testing.</p>
-      </div>
-      <div class="feature">
-        <h3>Phase 2 — Pilots</h3>
-        <p>Field deployments with municipal fire departments and facility partners.</p>
-      </div>
-      <div class="feature">
-        <h3>Phase 3 — Rollout</h3>
-        <p>Scale manufacturing and integrations with camera vendors.</p>
-      </div>
+      <div class="feature"><h3>Phase 1 — Prototype</h3><p>Training & testing</p></div>
+      <div class="feature"><h3>Phase 2 — Pilots</h3><p>Deploy with partners</p></div>
+      <div class="feature"><h3>Phase 3 — Rollout</h3><p>Scale + integrate OEM</p></div>
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact" class="section cta">
     <div class="container center">
       <h2>See it in action</h2>
-      <p>Request a demo or collaborate on a pilot deployment.</p>
+      <p>Request a demo or collaborate on a deployment.</p>
       <div class="cta">
         <a class="btn" href="mailto:email@domain.com">Contact</a>
         <a class="btn ghost" target="_blank" href="https://github.com/Echi-Prince/datademo">View Code</a>
@@ -282,6 +243,7 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container foot-flex">
       <div>© <span id="year"></span> FireSentinel</div>
@@ -292,6 +254,10 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
   <script src="assets/js/main.js"></script>
 </body>
